@@ -1,36 +1,5 @@
-import os
-from dotenv import load_dotenv
-from langchain.prompts import PromptTemplate
-from langchain_community.chat_models import ChatOpenAI  
-
-load_dotenv()
-
-llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.7)
-
 def generate_summary(name, job_role, education):
-    try:
-        with open("prompts/summary.txt", "r", encoding="utf-8") as file:
-            template_text = file.read()
+    return f"{name} is applying for the role of {job_role}. They have a strong educational background in {education}, and are passionate about growing in this field."
 
-        prompt = PromptTemplate.from_template(template_text)
-        final_prompt = prompt.format(name=name, job_role=job_role, education=education)
-
-        response = llm.predict(final_prompt)
-        return response
-
-    except Exception as e:
-        return f"Error generating summary: {e}"
-
-def generate_experience(name, job_role, experience):
-    try:
-        with open("prompts/experience.txt", "r", encoding="utf-8") as file:
-            template_text = file.read()
-
-        prompt = PromptTemplate.from_template(template_text)
-        final_prompt = prompt.format(name=name, job_role=job_role, experience=experience)
-
-        response = llm.predict(final_prompt)
-        return response
-
-    except Exception as e:
-        return f"Error generating experience: {e}"
+def generate_experience(name, experience):
+    return f"{name} has relevant experience in: {experience}. They have worked on several impactful projects."
